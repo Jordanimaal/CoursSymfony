@@ -1,9 +1,16 @@
 <?php
 
-use App\Kernel;
+declare(strict_types=1);
 
-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+$path = $_SERVER['PATH_INFO'] ?? '/';
+echo '<pre>';
+    var_dump($path);
+echo '</pre>';
 
-return function (array $context) {
-    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
-};
+if($path === '/') {
+    echo 'World';
+}
+
+if($path === '/bar') {
+    echo 'Bar';
+}
