@@ -9,7 +9,7 @@ use App\Domain\Errors\Controller\Error404;
 
 class Router
 {
-    private array $routes = [];
+    private array $routes;
 
     public function __construct() {
         $this->routes = [
@@ -23,6 +23,6 @@ class Router
 
         $class = $this->routes[$path] ?? $this -> routes['/404'];
 
-        return new $class;
+        return new $class();
     }
 }

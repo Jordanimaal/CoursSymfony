@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 namespace App\Domain\HelloWorld\Controller;
-
+use App\Infra\Http\Response;
+use App\Infra\Http\Request;
 class World
 {
-    public function __invoke()
+    public function __invoke(Request $request): Response
     {
-        return "World";
+        $name = $request->getQuery('name', 'anonymous');
+        return new Response("World");
     }
 }
