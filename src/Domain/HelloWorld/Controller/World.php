@@ -7,9 +7,8 @@ use App\Infra\Http\Request;
 use App\Infra\DependencyInjection\Container;
 class World
 {
-    public function __invoke(Container $container): Response
+    public function __invoke(Request $request): Response
     {
-        $request = $container->get(Request::class);
         $name = $request->getQuery('name', 'anonymous');
         return new Response("World");
     }

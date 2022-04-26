@@ -9,9 +9,8 @@ use App\Infra\Log\Logger;
 
 class Bar
 {
-    public function __invoke(Container $container): Response
+    public function __invoke(Logger $logger): Response
     {
-        $logger = $container->get(Logger::class);
         $logger->log('['.time().'] bar');
         return new Response("Olocal");
     }

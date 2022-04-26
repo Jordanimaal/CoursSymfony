@@ -9,6 +9,7 @@ use App\Infra\Routing\Router;
 use App\Infra\Http\Response;
 use App\Infra\DependencyInjection\Container;
 use App\Infra\Log\Logger;
+use App\Infra\DependencyInjection\ArgumentsResolver;
 
 
 $request = Request::createFromGlobals();
@@ -18,12 +19,12 @@ $container = new Container(
     $request,
     $router,
     new Logger()
-
 );
 
+$argumentsResolver = new ArgumentsResolver($container);
 $controller = $router->getController($request ->getPath());
-
-$response = $controller($container);
+$arguments = $container->resolveArguments($controller, '__invoke');
+$response = $controller(...$arguments);
 
 if(!$response instanceof Response) {
     throw new LogicException('Controller must return a ' .Response::class. 'object, ' .gettype($response). 'given.');
