@@ -1,16 +1,20 @@
 <?php
-
 declare(strict_types=1);
+spl_autoload_register(static function($fqcn){
+    $filePath= str_replace(['\\','App'], ['/','src'], $fqcn) . '.php';
+    require_once(__DIR__.'/../'.$filePath);
+});
+use App\Infra\Http\Request;
+use App\Infra\Routing\Router;
 
-$path = $_SERVER['PATH_INFO'] ?? '/';
-echo '<pre>';
-    var_dump($path);
-echo '</pre>';
 
-if($path === '/') {
-    echo 'World';
-}
+$request = Request::createFromGlobals();
+$router = new Router();
 
-if($path === '/bar') {
-    echo 'Bar';
-}
+$controller = $router->getController($request ->getPath());
+
+$response = $controller();
+echo $response;
+
+
+?>
