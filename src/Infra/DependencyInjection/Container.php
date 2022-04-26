@@ -13,6 +13,7 @@ class Container
         $this->argumentResolver = new ArgumentsResolver($this);
     }
 
+
     public function resolveArguments($class, $method) {
         return $this->argumentResolver->resoveArguments($class, $method);
     }
